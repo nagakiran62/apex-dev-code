@@ -1,0 +1,405 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" controller="lightning_Controller" >
+<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+ <aura:attribute name="recordId" type="String" />
+ <aura:attribute name="showRecord" type="Show__c" />
+    
+     
+     <div style="display:block; width:100%;">
+          
+                        <h4><b>CheckList:</b> </h4>
+                        <td></td>
+            
+        </div>
+    
+        <br/>
+        <br/>
+        
+		<div>		
+          <div style="float: left; ">
+            
+              <h1>1st shoot date</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="firstshoot" value="{!v.showRecord.X1st_shoot_date__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="firstshoot" value="{!v.showRecord.X1st_shoot_date__c}" displayDatePicker="true" />
+			</div>
+		  </div>	
+           <br/>
+		   <br/>
+		   <br/>
+	    <div>		
+          <div style="float: left; ">
+            
+              <h1>WBS Element Request</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="WBSElementReq" value="{!v.showRecord.WBS_Element_Request__c}" change="{!c.saveRecordCntrlr}"/-->
+			{!v.showRecord.WBS_Element__c}
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>acc.Set up Form</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="accsetup" value="{!v.showRecord.acc_Set_up_Form__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		   <div>
+          <div style="float: left; ">
+            
+              <h1>Request PCR,MMR,Digital Contact</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="RequestPCR" value="{!v.showRecord.Request_PCR_MML_Digital_Contact__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>		
+            <br/>
+			<br/>
+		  
+           <div>		
+          <div style="float: left; ">
+            
+              <h1>Calendar</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="Calendar" value="{!v.showRecord.Calendar__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="Calendar" value="{!v.showRecord.Calendar__c}" displayDatePicker="true" />
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+
+        <div>		
+          <div style="float: left; ">
+            
+              <h1>Network Contact List</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="networkcontact" value="{!v.showRecord.Network_Contact_List__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="networkcontact" value="{!v.showRecord.Network_Contact_List__c}" displayDatePicker="true" />			
+			
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+           <br/>
+		 
+        <div>		
+          <div style="float: left; ">
+            
+              <h1>Scenechronize</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="Scenechronize" value="{!v.showRecord.Scenechronize__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+
+		 
+         <div>		
+          <div style="float: left; ">
+            
+              <h1>Greenlight Memo</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="greenlight" value="{!v.showRecord.Greenlight_Memo__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="greenlight" value="{!v.showRecord.Greenlight_Memo__c}" displayDatePicker="true" />
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		 <div>		
+          <div style="float: left; ">
+            
+              <h1>Guidelines Email</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="guidelines" value="{!v.showRecord.Guidelines_Email__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="guidelines" value="{!v.showRecord.Guidelines_Email__c}" displayDatePicker="true" />
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		   
+		  <div>		
+          <div style="float: left; ">
+            
+              <h1>Post Guidelines</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="postguidelines" value="{!v.showRecord.Post_Guidelines__c}" change="{!c.saveRecordCntrlr}"/-->
+		    <ui:inputDate aura:id="postguidelines" value="{!v.showRecord.Post_Guidelines__c}" displayDatePicker="true" />			
+
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   <br/>
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Finance Vetting</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="financevetting" value="{!v.showRecord.Finance_Vetting__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Executed Budget Approval</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="internalbudget" value="{!v.showRecord.Internal_Budget_Approval__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		 
+        
+        <div>		
+          <div style="float: left; ">
+            
+              <h1>Insurance Start Date</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="vmninsurance" value="{!v.showRecord.VMN_Insurance_Procedure__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="vmninsurance" value="{!v.showRecord.VMN_Insurance_Procedure__c}" displayDatePicker="true" />
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Insurance End Date</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="vmninsurance" value="{!v.showRecord.VMN_Insurance_End_Date__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="vmninsuranceend" value="{!v.showRecord.VMN_Insurance_End_Date__c}" displayDatePicker="true" />
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   <br/>
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Background/ Business Checks</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="background" value="{!v.showRecord.Background_Business_Checks__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Travel Set Up</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="travelsetup" value="{!v.showRecord.Travel_Setup__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Deal Status</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="dealstatus" value="{!v.showRecord.Deal_Status__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		  
+         <div>		
+          <div style="float: left; ">
+            
+              <h1>Kick Off Call</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="kickoff" value="{!v.showRecord.Kick_Off_Call__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="kickoff" value="{!v.showRecord.Kick_Off_Call__c}" displayDatePicker="true" />			
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+        
+		 <div>		
+          <div style="float: left; ">
+            
+              <h1>Scenechronize Kick Off Call</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="kickoff" value="{!v.showRecord.Scenechronize_Kick_Off_Call__c}" change="{!c.saveRecordCntrlr}"/-->
+		    <ui:inputDate aura:id="scenekickoff" value="{!v.showRecord.Scenechronize_Kick_Off_Call__c}" displayDatePicker="true" />			
+			
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		  
+        <div>		
+          <div style="float: left; ">
+            
+              <h1>Crew List</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="crewlist" value="{!v.showRecord.Crew_List__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="crewlist" value="{!v.showRecord.Crew_List__c}" displayDatePicker="true" />
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+
+		<div>		
+          <div style="float: left; ">
+            
+              <h1>VTR Reminder</h1>
+          </div>  
+           <div style="float: right;"> 
+            
+			<!--ui:inputCheckbox aura:id="VTRremainder" value="{!v.showRecord.VTR_Reminder__c}" change="{!c.saveRecordCntrlr}"/-->
+		    <ui:inputDate aura:id="VTRremainder" value="{!v.showRecord.VTR_Reminder__c}" displayDatePicker="true" />			
+
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   <br/>   
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Budget</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="budget" value="{!v.showRecord.Budget__c}" change="{!c.saveRecordCntrlr}"/-->
+			$ {!v.showRecord.LRP_Estimate__c}
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		  
+		   
+		   
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Cost Report</h1>
+          </div>  
+           <div style="float: right;"> 
+            <!--ui:inputCheckbox aura:id="Costreport" value="{!v.showRecord.Cost_Report__c}" change="{!c.saveRecordCntrlr}"/-->
+			<ui:inputDate aura:id="Costreport" value="{!v.showRecord.Cost_Report__c}" displayDatePicker="true" />
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   <br/>
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Deliverables</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="delivarablescleared" value="{!v.showRecord.Deliverables_Cleared__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Production</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="enterdeal" value="{!v.showRecord.Enter_Deal_Summaries__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+		   
+		   <div>		
+          <div style="float: left; ">
+            
+              <h1>Legal</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="wgaworklist" value="{!v.showRecord.WGA_Weekly_Work_List}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/>
+
+        <div>		
+          <div style="float: left; ">
+            
+              <h1>MML</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="MML" value="{!v.showRecord.MML__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/> 
+
+        <div>		
+          <div style="float: left; ">
+            
+              <h1>Post</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="Post" value="{!v.showRecord.Post__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/> 
+
+        <div>		
+          <div style="float: left; ">
+            
+              <h1>Residuals</h1>
+          </div>  
+           <div style="float: right;"> 
+            <ui:inputCheckbox aura:id="Residuals" value="{!v.showRecord.Residuals__c}" change="{!c.saveRecordCntrlr}"/>
+			</div>
+		</div>	
+           <br/>
+		   <br/> 		   
+           <br/>
+           <br/>
+        <div style="text-align:center;">
+         <lightning:button class="btn" variant="brand" label="Save" onclick="{!c.setOutput}"/>		   
+        </div>
+    </aura:component>

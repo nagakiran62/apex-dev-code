@@ -1,0 +1,9 @@
+<aura:component >
+    <aura:attribute name="msg" type="String" /> 
+    <!-- step 1 register for the event -->
+    <aura:registerEvent name="task" type="c:TaskEvent" />
+    
+    <lightning:input value="{! v.msg}" label="enter the text" />
+      <!-- create a button so that the notifier can inform handler -->
+    <lightning:button label="Inform Handler" onclick="{! c.informHandler}"/>
+</aura:component>

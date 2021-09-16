@@ -1,0 +1,9 @@
+<aura:component access="GLOBAL" >
+    <aura:attribute name="compja" 
+                    type="String"
+                    access="GLOBAL"
+                    default="good morning"/>
+    <!--USE CURLY BANG TO REFER ATTRIBUTES ALONG WITH V 
+          NOTATION WHERE V DENOTES VIEW/VALUE PORT-->
+    welcome to my component....{! V.compja}
+</aura:component>

@@ -1,0 +1,11 @@
+.THIS .slds-vertical-tabs__nav-item {
+    background-color: #676767;
+    font-size: 1.1rem;
+    color: white;   
+}
+.THIS .slds-is-active {
+    background-color: white;
+    font-weight: bolder;
+    font-size: 1.1rem;
+    color: #015B7D;
+}

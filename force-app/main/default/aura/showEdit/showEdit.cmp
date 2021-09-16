@@ -1,0 +1,29 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="lightning_Controller" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="bool" type="Boolean" default="false" />
+    <aura:attribute name="showdelete" type="Boolean" default="false" />
+    <aura:attribute name="hideAirDates" type="Boolean" default="true" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<aura:handler name="onSaveSuccess" event="force:recordSaveSuccess" action="{!c.handleSaveSuccess}"/>
+	<aura:if isTrue="{!v.bool}">
+        <div style="float:right;">
+            <lightning:button label="Save Show" onclick="{!c.save}"/>  
+            <br/>
+            <aura:if isTrue="{!v.showdelete}">
+            <lightning:button label="Delete" onclick="{!c.onDelete}"/>  
+            <br/>
+            </aura:if>    
+            <a href='#' onclick="{!c.printPDF}">Show Data Report</a>
+        </div>
+        <hr />
+        <force:recordEdit aura:id="edit" recordId="{!v.recordId}" />
+      <aura:if isTrue="{!v.hideAirDates}">
+        <div aura:id="showDates" style="width:100%;" >
+            <c:ShowAirDates recordId="{!v.recordId}" />
+        </div>
+      </aura:if>
+	</aura:if>
+    
+    <aura:handler event="force:refreshView" action="{!c.doInit}" />
+    <ui:button label="Save" press="{!c.save}"/>
+</aura:component>

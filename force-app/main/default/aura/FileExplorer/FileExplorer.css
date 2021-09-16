@@ -1,0 +1,10 @@
+.THIS .pointer {
+    cursor : "pointer";
+}
+.THIS .folder {
+     margin: 5px;
+     padding: 5px;
+ }
+ .THIS .file {
+      margin-left: 15px;
+  }

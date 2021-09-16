@@ -1,0 +1,38 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" >
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="selected" type="String" default="0" />
+	<!--
+    <c:showGenInfo recordId="{!v.recordId}" />
+	-->
+    <div class="slds-tabs_default">
+        <ul class="slds-tabs_default__nav" role="tablist">
+            
+            <li class="{!'slds-tabs_default__item '+if(v.selected=='2','slds-is-active','')}" title="CashFlow" role="presentation">
+                <a class="slds-tabs_default__link" onclick="{!c.selectTab}" href="javascript:void(0);" role="tab" tabindex="{!if(v.selected=='2','0','-1')}" aria-selected="{!if(v.selected=='2','true','false')}" aria-controls="tab-default-2" id="tab-default-2__item">CashFlow</a>
+            </li>            
+            
+            <li class="{!'slds-tabs_default__item '+if(v.selected=='0','slds-is-active','')}" title="Network" role="presentation">
+                <a class="slds-tabs_default__link" onclick="{!c.selectTab}" href="javascript:void(0);" role="tab" tabindex="{!if(v.selected=='0','0','-1')}" aria-selected="{!if(v.selected=='0','true','false')}" aria-controls="tab-default-0" id="tab-default-0__item">Assumptions</a>
+            </li>
+            <!-- Commenting out "Budget" sub Tab - Gireesh - ECM-78 -->
+            <!--
+            <li class="{!'slds-tabs_default__item '+if(v.selected=='1','slds-is-active','')}" title="Show" role="presentation">
+                <a class="slds-tabs_default__link" onclick="{!c.selectTab}" href="javascript:void(0);" role="tab" tabindex="{!if(v.selected=='1','0','-1')}" aria-selected="{!if(v.selected=='1','true','false')}" aria-controls="tab-default-1" id="tab-default-1__item">Budget</a>
+            </li>
+				-->
+        </ul>
+        <div id="tab-default-0" class="{!'slds-tabs_default__content '+if(v.selected=='0','slds-show','slds-hide')}" role="tabpanel" aria-labelledby="tab-default-0__item">
+           <c:BudgetAssumptions recordId="{!v.recordId}" />
+        </div>
+<!-- Commenting out "Budget" sub Tab - Gireesh - ECM-78 -->
+<!--        
+        <div id="tab-default-1" class="{!'slds-tabs_default__content '+if(v.selected=='1','slds-show','slds-hide')}" role="tabpanel" aria-labelledby="tab-default-1__item">
+		    <c:showBudget recordId="{!v.recordId}" /> 
+        </div>
+-->
+        <div id="tab-default-2" class="{!'slds-tabs_default__content '+if(v.selected=='2','slds-show','slds-hide')}" role="tabpanel" aria-labelledby="tab-default-2__item">
+            <c:CashFlowForm2 recordId="{!v.recordId}" />
+        </div> 
+    </div>
+
+</aura:component>

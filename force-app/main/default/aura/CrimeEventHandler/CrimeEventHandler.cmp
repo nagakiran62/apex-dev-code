@@ -1,0 +1,7 @@
+<aura:component >
+	<!-- step 1: define this component as handler for c:CrimeEvent -->
+    <aura:handler name="crime" event="c:CrimeEvent" action="{! c.handleCrime}" />
+    
+    <!-- step 2: refer notifier -->
+    <c:CrimeEventNotifier />
+</aura:component>

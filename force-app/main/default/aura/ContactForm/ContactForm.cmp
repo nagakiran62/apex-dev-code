@@ -1,0 +1,17 @@
+<aura:component controller="ContactController" extends="c:GenericCallComp" >
+    <aura:attribute name="cont" type="Contact" default="{'sObjectType' : 'Contact'}" />
+    <aura:attribute name="status" type="String" default="draft" />
+    <div  class="slds-text-align--center slds-box slds-theme--success">
+      Contact Form
+    </div>
+    <div>
+        {! v.status}
+    </div>
+    <lightning:input value="{! v.cont.FirstName}" label="First Name" />
+    <lightning:input value="{! v.cont.LastName}" label="Last Name" required="true" minlength="2" maxlength="5"
+                     messageWhenBadInput="Please enter at least 2 chars..." 
+                     onchange="{! c.validateLastName}"/>
+    <lightning:input value="{! v.cont.Email}" label="Email" />
+    
+    <lightning:button label="Submit" variant="brand" onclick="{! c.onSubmit}" disabled="true" aura:Id="btn" />
+</aura:component>

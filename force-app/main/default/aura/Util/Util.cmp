@@ -1,0 +1,39 @@
+<aura:component controller="util_Controller">
+
+	<aura:method name="query" action="{!c.queryDatabase}" >
+		<aura:attribute name="queryString" type="String" />
+		<aura:attribute name="callback" type="Object" />
+		<aura:attribute name="failureCallback" type="Object" />
+	</aura:method>
+
+	<aura:method name="upsert" action="{!c.upsertRecs}" >
+		<aura:attribute name="records" type="Object" />
+		<aura:attribute name="callback" type="Object" />
+		<aura:attribute name="failureCallback" type="Object" />
+	</aura:method>
+
+	<aura:method name="delete" action="{!c.deleteRecs}" >
+		<aura:attribute name="records" type="Object" />
+		<aura:attribute name="callback" type="Object" />
+		<aura:attribute name="failureCallback" type="Object" />
+	</aura:method>
+
+	<aura:method name="queryRecords" action="{!c.query}" >
+		<aura:attribute name="sobjectType" type="String" />
+		<aura:attribute name="fields" type="String[]" />
+		<aura:attribute name="whereClause" type="String" />
+		<aura:attribute name="orderBy" type="String" />
+		<aura:attribute name="limit" type="String" />
+		<aura:attribute name="callback" type="Object" />
+		<aura:attribute name="failureCallback" type="Object" />
+	</aura:method>
+
+	<aura:method name="queryPicklistValues" action="{!c.queryPicklist}">
+		<aura:attribute name="sobjectType" type="String" />
+		<aura:attribute name="fieldName" type="String" />
+		<aura:attribute name="callback" type="Object" />
+		<aura:attribute name="failureCallback" type="Object" />
+	</aura:method>
+
+
+</aura:component>

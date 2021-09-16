@@ -1,0 +1,43 @@
+.THIS .saveButton {
+ margin-top: 15px;
+}
+
+.THIS input[type=text], .THIS select {
+    width: 95%;
+    padding: 2px 2px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.THIS .button2 {
+    background-color: LightSkyBlue;
+    border: 1px solid black;
+    color: white;
+    padding: 1px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.THIS .button1 {
+    background-color: LightCoral;
+    border: 1px solid black;
+    color: white;
+    padding: 1px 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.THIS .slds-select_container {
+    top: -10px;
+}

@@ -1,0 +1,9 @@
+<aura:component  controller="accController" >
+	 <aura:handler name="init" action="{!c.getAccountList}" value="{!this}" />
+      <aura:attribute name="AccountList" type="List" />
+    
+       <aura:iteration items="{!v.AccountList}" var="acc">
+           "{!acc.Name}"
+           <br/>
+    </aura:iteration>
+</aura:component>

@@ -1,0 +1,71 @@
+<aura:component >
+	<aura:attribute name="recordId" type="String" />
+	<aura:attribute name="episodes" type="Object[]" />
+	<aura:attribute name="numberOfEpisodes" type="Integer" />
+	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+
+	<c:Util aura:id="util" />
+
+	<lightning:card title="Air Dates">
+        <aura:set attribute="actions">
+            <lightning:button aura:id="toggle_vis" label="Hide/Show" onclick="{!c.toggleVis}" />
+            <lightning:button label="Save" onclick="{!c.save}" />
+            
+			<!-- <lightning:button label="Go To Report" onclick="{!c.saveAndGoToReport}" /> -->
+			<a class="slds-button slds-button_neutral" target="_blank" href="{!'/one/one.app#/sObject/00O6A0000027lEcUAI/view?fv2=' + v.recordId}">Go To Report</a>
+		</aura:set>
+		<div id="air_dates_div">
+		<table class="slds-table slds-table_bordered slds-table_cell-buffer">
+		  <thead>
+		    <tr class="slds-text-title_caps">
+		      <th scope="col">
+		        <div class="slds-truncate" title="Opportunity Name">Episode #</div>
+		      </th>
+		      <th scope="col">
+		        <div class="slds-truncate" title="Stage">Delivery Date</div>
+		      </th>
+		      <th scope="col">
+		        <div class="slds-truncate" title="Close Date">Premiere Date</div>
+		      </th>
+		      <th scope="col">
+		      	<div class="slds-truncate" title="Re-air Dates">Re-air Date</div>
+		      </th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<aura:iteration items="{!v.episodes}" var="item" indexVar="i" >
+			    <tr>
+			      <th scope="row" data-label="Opportunity Name">
+			        <div class="slds-truncate" title="">{!i+1}</div>
+			      </th>
+			      <td data-label="Prospecting">
+			      	<ui:inputDate value="{!item.deliveryDate}" displayDatePicker="true"/>
+			      </td>
+			      <td data-label="Close Date">
+			      	<ui:inputDate value="{!item.premiereDate}" displayDatePicker="true"/>
+			      </td>
+			      
+			      <td data-label="">
+			      		<table class="slds-table slds-table_cell-buffer">
+			      			<thead>
+			      				<tr>
+			      					<th scope="col">
+			      						<lightning:buttonIcon class="slds-float_right" title="{!i}" iconName="utility:add" variant="bare" alternativeText="Settings" iconClass="dark" onclick="{!c.addReair}" />
+			      					</th>
+			      				</tr>
+			      			</thead>
+			      			<tbody>
+			      				<aura:iteration items="{!item.reair}" var="reair">
+			      					<ui:inputDate value="{!reair.reairDate}" displayDatePicker="true" />
+			      				</aura:iteration>
+			      			</tbody>
+			      		</table>
+			      </td>
+			    </tr>
+			</aura:iteration>
+		  </tbody>
+		</table>        
+        </div>
+	</lightning:card>
+</aura:component>

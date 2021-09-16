@@ -1,0 +1,6 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+<lightning:button label="Toggle" onclick="{!c.toggle}"/>
+
+    <p aura:id="text">Now you see me</p>
+	
+</aura:component>

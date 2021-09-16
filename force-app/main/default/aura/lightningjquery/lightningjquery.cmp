@@ -1,0 +1,8 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	 <!--ltng:require scripts="{!join(',',
+    $Resource.myLightingComponent + '/jquery-3.3.1.min.js',
+    $Resource.myLightingComponent+ '/jquery.nav.js')}" afterScriptsLoaded="{!c.doInit}"/-->
+    
+    <ltng:require scripts='/resource/myLightingComponent' afterScriptsLoaded="{!c.jsLoaded}" />
+
+</aura:component>

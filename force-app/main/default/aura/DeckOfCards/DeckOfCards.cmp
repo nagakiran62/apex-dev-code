@@ -1,0 +1,17 @@
+<aura:component >
+  <div>  
+    <lightning:button label="Ajith" onclick="{! c.handleclick}" aura:id="1" />
+    <lightning:button label="Vijay" onclick="{! c.handleclick}" aura:id="2" />
+  </div>
+ 
+ <div>
+    <div class="slds-hide" aura:id="ajithdiv">
+        <c:ajithComp />     
+    </div>
+    
+     <div class="slds-hide" aura:id="vijaydiv">
+        <c:vijayComp />     
+    </div>
+    
+ </div>
+</aura:component>

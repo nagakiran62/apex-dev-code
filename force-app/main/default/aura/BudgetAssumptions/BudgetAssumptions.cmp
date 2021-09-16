@@ -1,0 +1,179 @@
+<aura:component controller="lightning_Controller" implements="force:appHostable,force:hasRecordId,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="recordId" type="String" />
+   <!-- <aura:attribute name="showRoyalty" type="String"/> -->
+    <aura:attribute name="showRoyalty" type="Show__c" default="{ 'sobjectType': 'Show__c'}"/>
+    <aura:attribute name="budgetPerson" type="List" />
+    <aura:attribute name="budgetRental" type="List" />
+    <aura:handler name="change" value="{!v.showRoyalty}" action="{!c.keyCheck}" />
+    <aura:attribute name="show" type="String" />
+    <aura:attribute name="today" type="String" />
+    <aura:attribute name="mode" type="String" default="input" />
+    <aura:attribute name="guildstring" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:handler event="force:refreshView" action="{!c.init}" />
+    <aura:attribute name="budgetPersons" type="Budget_Person__c" default="{'sobjectType': 'Budget_Person__c'}" />
+    <aura:attribute name="budgetPersonCats" type="String[]" default="Producer,Talent,Writer,Director,Head Of Dept."/>
+    <aura:attribute name="budgetRentalCats" type="String[]" default="Production Equipment Rental/Purchase, Post Production Equipment Rental/Purchase "/>    
+  <!--  <div style="width:35%;"><lightning:input name="input1" label="Royalty" value="{!v.showRoyalty.Royalty__c}"/> </div>  -->
+    <lightning:card title="">
+        
+        <div class="slds-card__body" style="border:1px dotted black;">                   
+            <div style="float:right;"><a href='#' onclick="{!c.clickCSV}">Download Data</a>&nbsp;&nbsp;</div>                                                                                
+            <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer" >
+                <tr>
+                    <th colspan="3" style="font-size:20px; font-weight:bold;">                        
+                        <h1>Budget Assumptions/People</h1>
+                    </th>
+                    <th>
+                        <div class="slds-truncate slds-text-align_right">                          
+                           <lightning:button label="Add Assumption" onclick="{!c.addBudgetPerson}" />
+                           
+                        </div>
+                    </th>
+                </tr>
+            </table>
+            <aura:iteration items="{!v.budgetPerson}" var="b" indexVar="key" >
+                <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer assumptionsrow" >
+                    <tr class="slds-hint-parent" >
+                        <td>
+                            <lightning:select value="{!b.Category__c}">    
+                                <option value="Producer">Producer</option>
+                                <option value="Talent">Talent</option>
+                                <option value="Writer">Writer</option>
+                                <option value="Director">Director</option>
+                                <option value="Head Of Dept.">Head of Dept.</option>
+                            </lightning:select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="slds-truncate slds-text-align_left">
+                                Title<br />
+                                <ui:inputText aura:id="Title__c" value="{!b.Title__c}" required="false"/>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-text-align_left">
+                                Name<br />
+                                <ui:inputText aura:id="Name"  value="{!b.Name}" required="false"/>
+                            </div>
+                        </td>
+                        <td>&nbsp;
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-text-align_left">
+                                Rate<br />
+                                <ui:inputText aura:id="Rate__c"  value="{!b.Rate__c}" required="false"/>
+                            </div>
+                        </td>
+                        <td>
+                            <lightning:button label="Save Assumption" onclick="{!c.saveBudgetPeople}" />&nbsp;&nbsp; 
+                            <a href="javascript:void();" onclick="{!c.deleteAssumption}" data-id="{!b.Id}" >Delete</a>                      
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="slds-truncate slds-text-align_left">
+                                Options<br />                              
+                                <ui:inputText aura:id="Options__c"  value="{!b.Options__c}" required="false"/>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div class="slds-truncate slds-text-align_left">
+                                Travel Requirements<br />
+                                <lightning:textarea name="Travel_Requirements__c" value="{!b.Travel_Requirements__c}"  />
+                            </div>                    
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-text-align_left">
+                                Credit<br />
+                                <lightning:textarea name="Credit__c" value="{!b.Credit__c}" />
+                                <!--<ui:inputText aura:id="Credit__c"  value="{!b.Credit__c}" required="false"/>-->
+                            </div>
+                        </td>
+                        <!--- added by naga for adding new field notes/gurantee on 14 march 2019 -->
+                        <td>
+                            <div class="slds-truncate slds-text-align_left">
+                                Notes/Guarantee<br />
+                                <lightning:textarea name="Notes_Guarantee__c" value="{!b.Notes_Guarantee__c}" />
+                            </div>
+                        </td>
+
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </aura:iteration>           
+            <!--budget person table END-->
+            <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer assumptionsrow" >
+                <tr>
+                    <th>
+                        <div class="slds-truncate thtitle" title="Item">Budget Info</div>
+                        <div class="slds-form-element slds-size_1-of-1">
+                            <ui:inputTextArea aura:id="Budget_Notes__c" value="{!v.show.Budget_Notes__c}" label="" rows="5"/>                        
+                        </div>
+                        <div>
+                            <lightning:button label="Save" variant="neutral" class="saveButton" iconPosition="right" onclick="{!c.saveBudgetNotes}"/>                       
+                        </div>
+                    </th>
+                </tr>
+            </table>		            
+        </div>
+        <hr />
+        <div class="slds-card__body" style="border:1px dotted black;">
+            <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer" >
+                <tr>
+                    <th colspan="2" style="font-size:20px; font-weight:bold;">
+                        <h1>Budget Assumptions/Vendors</h1>
+                    </th>
+                    <th colspan="2">
+                        <div class="slds-truncate slds-text-align_right">
+                            <lightning:button label="Add Assumption" onclick="{!c.addBudgetRental}" />                            
+                        </div>
+                    </th>
+                </tr>
+            </table>
+            <aura:iteration items="{!v.budgetRental}" var="br" indexVar="key" >
+                <table class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer assumptionsrow2" >
+                    <tr class="slds-hint-parent">
+                        <td>
+                            <lightning:select value="{!br.Category__c}">    
+                                <option value="Production Equipment Rental/Purchase">Production Equipment Rental/Purchase</option>
+                                <option value="Post Production Equipment Rental/Purchase">Post Production Equipment Rental/Purchase</option>
+                            </lightning:select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="slds-truncate slds-text-align_left">
+                                Name<br />
+                                <ui:inputText aura:id="Name"  value="{!br.Name}" required="false"/>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate slds-text-align_left">
+                                Rate<br />
+                                <ui:inputText aura:id="Rate__c"  value="{!br.Rate__c}" required="false"/>
+                            </div>
+                        </td>
+                        <td>
+                            <lightning:button label="Save Assumption" onclick="{!c.saveBudgetRentals}" />&nbsp;&nbsp;
+                            <a href="javascript:void();" onclick="{!c.deleteAssumptionRental}" data-id="{!br.Id}" >Del</a>                      
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="slds-truncate slds-text-align_left">
+                                Service<br />
+                                <ui:inputText aura:id="Service__c"  value="{!br.Service__c}" required="false"/>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </aura:iteration>                        
+        </div>
+    </lightning:card>
+    <c:Util aura:id="util" />
+</aura:component>

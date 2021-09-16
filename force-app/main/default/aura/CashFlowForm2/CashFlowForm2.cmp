@@ -1,0 +1,528 @@
+<aura:component implements="force:appHostable" controller="lightning_Controller" >
+    <aura:attribute name="templateId" type="String" />
+    <aura:attribute name="taskId" type="String" />
+    <aura:attribute name="fileType" type="String" />
+    <aura:attribute name="recString" type="String" />
+    <aura:attribute name="modalOpen" type="Boolean" default="false" />
+    <aura:attribute name="digitalAllocationCheckbox" type="Boolean" default="false" />
+    <aura:attribute name="graphicsAllocationCheckbox" type="Boolean" default="false" />
+    <aura:attribute name="internalCharges1Checkbox" type="Boolean" default="false" />
+    <aura:attribute name="internalCharges2Checkbox" type="Boolean" default="false" />
+    <aura:attribute name="approvedProductionOverageCheckbox" type="Boolean" default="false" />
+    
+    <aura:attribute name="totalToBeFunded" type="String" />
+    
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="selectedValue" type="String" />
+    <aura:attribute name="budgetId" type="String" />
+    <aura:attribute name="paymentRows" type="Integer" default="10" />
+    <aura:attribute name="summaryRows" type="List" default="{1,2,3,4,5,6,7,8,9,10}"/>
+    <aura:attribute name="show" type="Show__c" default="{'sobjectType': 'Show__c'}" />
+    <aura:attribute name="cashflowBudget2" type="Budget_Item__c" default="{'sobjectType': 'Budget_Item__c'}" />
+    <aura:attribute name="paymentDetail" type="List" />
+    <aura:attribute name="paymentDetailoverages" type="List" />
+	<aura:attribute name="InternalExpenses" type="List" />
+    <aura:attribute name="paymentDetails" type="Payment_Details__c" default="{'sobjectType': 'Payment_Details__c'}" />
+    <!--<aura:attribute name="paymentDetails" type="Payment_Details__c[]" />-->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:method name="export" action="{!c.export}"></aura:method>
+    <aura:attribute name="cashflowBudget" type="Budget_Item__c"
+                    default="{sobjecttype: 'Budget_Item__c',
+                             Id:'',
+                             Show__c : '',
+                             For_Cashflow__c: true,
+                             Funded_To_Date__c2: '',
+                             Net_Terms__c: '',
+                             PSA_Status_1__c: '',
+                             Others__c: '',
+                             Other_text__c: '',
+                             Total_To_Be_Funded__c: '',
+                             Cashflow_Notes__c: ''
+                             }"
+                    />     
+
+    <aura:attribute name="cashflowid" type="String" />
+    
+    <c:Util aura:id="util"/>
+     <div style="float:right;"> <a href="{!'/apex/cashFlowDetailsXLS?recid='+v.recordId}">Download Data</a> &nbsp;&nbsp;</div>
+    <div>
+        <table  class="slds-table slds-table_bordered slds-no-row-hover slds-table_cell-buffer" style="width:95%;">
+		<H1 style="font-size:20px ;font-weight:bold"> <ui:outputText value="{!v.show.Name}"/> </H1>
+		<br></br>
+            <tr>
+                <td colspan="4">
+                    <div style="position:relative; float:right; width:10%;">
+                        <!--<lightning:button label="Calculate" variant="neutral" class="saveButton" iconPosition="right" onclick="{!c.calculate}"/> -->     
+                        <lightning:button label="Save" variant="neutral" class="saveButton" iconPosition="right" onclick="{!c.saveCashFlow}"/> 
+                        
+                    </div>
+                    
+                </td>
+            </tr>
+
+             <Tr>
+                <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">ASSET ID</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span> 
+                         <ui:outputText value="{!v.show.Asset_ID__c}"/> 
+                     </span>
+                    </div>
+                </th>
+
+               <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">WBS ELEMENT</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span> 
+                         <ui:outputText value="{!v.show.WBS_Element__c}"/> 
+                     </span>
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+            </Tr>
+		    <br></br>
+			
+			
+			<Tr>
+                <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Production Type</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span> 
+                         <ui:outputText value="{!v.show.ProductionType__c}"/> 
+                     </span>
+                    </div>
+                </th>
+
+               <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Number Of Episodes</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span> 
+                         <ui:outputText value="{!v.show.NumberofEps__c}"/> 
+                     </span>
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+            </Tr>
+		    <br></br>
+		 
+            <h1 style="font-size:15px; font-weight:bold"> Vendor Info</h1>
+			<br></br>
+			<br></br>
+			<span></span>
+            <tr class="slds-text-title_caps">
+                <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Vendor Name</div>
+                    <div class="slds-truncate" title="Name">
+                        <lightning:input type="text" value="{!v.show.Vendor_Name__c}"  variant="standard"  />
+                    </div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Vendor Number</div>
+                    <div class="slds-truncate" title="Name">
+                        <lightning:input type="text" value="{!v.show.Vendor_Id__c}"  variant="standard" />
+                    </div>
+                </th>
+                <!--td scope="col">
+                    <div class="slds-truncate thtitle" title="Item">PSA Status</div>
+                    <div class="slds-form-element slds-size_1-of-2">
+                        <lightning:select value="{!v.cashflowBudget.PSA_Status_1__c}" aura:id="PSA_Status_1__c">    
+                            <option value="Fully Executed">Fully Executed</option>
+                            <option value="Not Executed">Not Executed</option>
+                            <option value="COA on File">COA on File</option>
+                        </lightning:select>
+                    </div>
+                </td-->
+            </tr>
+            <tr>
+			
+			<th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Prod Co Point of Contact</div>
+                    <div class="slds-truncate" title="Name">
+                        <lightning:input type="text" value="{!v.show.Prod_Co_Point_of_Contact__c}"  variant="standard" />
+                    </div>
+                </th>
+                
+                <th scope="col">&nbsp;</th>
+
+            </tr>			
+
+		   <tr>
+                <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Net Terms</div>
+                    <div class="slds-form-element slds-size_1-of-2">
+                        <lightning:textArea value="{!v.cashflowBudget.Net_Terms__c}" placeholder=""  aura:id="Net_Terms__c" variant="standard" />
+                    </div>
+                </th>
+                 <!-- added by naga -->
+				 
+				 <td scope="col">
+                    <div class="slds-truncate thtitle" title="Item">PSA Status</div>
+                    <div class="slds-form-element slds-size_1-of-2">
+                        <lightning:select value="{!v.cashflowBudget.PSA_Status_1__c}" aura:id="PSA_Status_1__c">    
+                            <option value="Fully Executed">Fully Executed</option>
+                            <option value="Not Executed">Not Executed</option>
+                            <option value="COA on File">COA on File</option>
+                        </lightning:select>
+                    </div>
+                </td>
+				 
+				 <!--th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Total To Be Funded </div>
+                    <br></br>
+					<div class="slds-form-element slds-size_1-of-2">
+                       <span>$ 
+                         <ui:outputText value="{!v.cashflowBudget.total_fund_test_text__c}"/>
+                       </span>    
+                    </div>
+                </th-->
+                
+                
+            </tr>
+			 <h1 style="font-size:15px; font-weight:bold"> Cashflow Info</h1>
+			 <br></br>
+			 <br></br>
+			<span></span>
+			
+			<Tr>
+			  <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">LRP Estimate </div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span>$ 
+                          <ui:outputText value="{!v.show.LRP_Estimate__c}"/> 
+                     </span>
+                    </div>
+                </th>
+				
+			  <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Residuals Estimate</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                        <span>$
+                         <ui:outputText value="{!v.show.Residual_Estimate__c}"/>
+                        </span>  
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+            </Tr>
+			<br></br>
+			
+			<Tr>
+			  <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">LRP Estimate Date</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span> 
+                         <ui:outputDateTime  value="{!v.show.LastModifiedDate}"/> 
+                     </span>
+                    </div>
+                </th>
+				
+			  <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Residuals Estimate Date</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                        <span>
+                         <ui:outputDateTime  value="{!v.show.LastModifiedDate}"/>
+                        </span>  
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+            </Tr>
+			<br></br>
+			<Tr>
+			<th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Total Gross Budget </div>
+                    <br></br>
+					<div class="slds-form-element slds-size_1-of-2">
+                       <span>$ 
+                         <ui:outputText value="{!v.cashflowBudget.total_fund_test_text__c}"/>
+                       </span>    
+                    </div>
+                </th>
+			</Tr>
+			<br></br>
+            <Tr>
+           
+
+               <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Funded To Date</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span>$ 
+                         <ui:outputText value="{!v.cashflowBudget.Funded_to_date_formula_Text__c }"/> 
+                     </span>
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+            </Tr>
+		    <br></br>
+			
+            <Tr>
+			  
+				
+			  <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Remaining to be Funded</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                        <span>$
+                         <ui:outputText value="{!v.cashflowBudget.Difference_in_total_and_funded_date_text__c}"/>
+                        </span>  
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+            </Tr>
+			<br></br>
+			<Tr>
+			     <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Tax Credit</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span>$ 
+                         <ui:outputText value="{!v.cashflowBudget.Tax_Credit_Text__c }"/> 
+                     </span>
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+			</Tr>
+			<br></br>
+			
+			<Tr>
+			  
+			   <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Approved Overages</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span>$ 
+                         <ui:outputText value="{!v.show.Approved_Overages_Text__c}"/> 
+                     </span>
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+			</Tr>
+			
+			<Tr>
+			  
+			   <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Internal Expenses</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span>$ 
+                         <ui:outputText value="{!v.show.Internal_Expense_Text__c}"/> 
+                     </span>
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+			</Tr>
+			
+			
+            <Tr>
+			  
+			   <th scope="col">
+                    <div class="slds-truncate thtitle" title="Item">Total to be Funded</div>
+					<br></br>
+                    <div class="slds-form-element slds-size_1-of-2">
+                      <span>$ 
+                         <ui:outputText value="{!v.show.Total_Gross_Budget_Text__c}"/> 
+                     </span>
+                    </div>
+                </th>
+				<th scope="col">&nbsp;</th>
+			</Tr>
+			
+			
+			
+			<!--Tr>
+                <td colspan="4">
+                    <div class="slds-truncate thtitle" title="Item">Cashflow Info</div>
+                    <div class="slds-form-element slds-size_1-of-2">
+                        <ui:inputTextArea aura:id="Cashflow_Notes__c" value="{!v.cashflowBudget.Cashflow_Notes__c}" label="" rows="5"/>                        
+                    </div>
+                </td>
+            </Tr-->
+        </table>
+        <hr />
+        <table id="paymentTable">
+            <Tr>
+                <th colspan="7">
+                    Payment Details  - Approved Budget
+                </th>
+            </Tr>
+			
+			<br></br>
+            <tr>
+                <td colspan="9">
+                    <div class="slds-truncate slds-text-align_right">
+                        <lightning:button label="Add New Payment" onclick="{!c.addPaymentItem}" />
+                        <lightning:button label="Save Payment" onclick="{!c.savePaymentDetail}" />                        
+                    </div>                    
+                </td>
+            </tr>
+            <tr>
+                <th>OWED</th>
+                <th>PAID</th>
+                <th>CONFIRMED DATE</th>
+				<th>PAYMENT STATUS</th>
+                <th>CLEARED DATE</th>
+				<th>PO #</th>
+				<th>VENDOR</th>
+                <th>PAYMENT NOTES/DETAILS</th>
+               
+                
+                 
+                <th>&nbsp;</th>
+            </tr>
+            <aura:iteration items="{!v.paymentDetail}" var="b" indexVar="key" >
+                <tr>
+                    <td><ui:inputCurrency aura:id="Left_To_Pay__c"  value="{!b.Left_To_Pay__c}"  required="false"/></td>
+                    <td><ui:inputCurrency aura:id="Paid__c"  value="{!b.Paid__c}" required="false"/></td>
+                    <td><ui:inputText aura:id="Confirmed_Date__c"  value="{!b.Confirmed_Date__c}" required="false"/></td>
+                    <td ><lightning:select value="{!b.Payment_Status__c}" aura:id="Payment_Status__c" >    
+                            <option value="PAID">PAID</option>
+                            <option value="NOT PAID">NOT PAID</option>
+                            <option value="IN PROCESS">IN PROCESS</option>
+                        </lightning:select></td>
+                    <td><ui:inputText aura:id="Cleared_Date_CJIA__c"  value="{!b.Cleared_Date_CJIA__c}" required="false"/></td>
+                    <td><ui:inputText aura:id="PO__c"  value="{!b.PO__c}" required="false"/></td>
+					<td><ui:inputText aura:id="Vendor__c"  value="{!b.Vendor__c}" required="false"/></td>
+					<td><ui:inputText aura:id="Milestones_Notes__c"  value="{!b.Milestones_Notes__c}" required="false"/></td>                    
+                    
+                    
+                    
+                    <td><a href="javascript:void();" onclick="{!c.deletePayment}" data-id="{!b.Id}" >Del</a></td>
+                </tr>
+            </aura:iteration>
+        </table>
+		
+		<table id="paymentTable">
+            <Tr>
+                <th colspan="7">
+                     Payment Details - Approved Overages
+                </th>
+            </Tr>
+			<br></br>
+		
+            <tr>
+                <td colspan="9">
+                    <div class="slds-truncate slds-text-align_right">
+                        <lightning:button label="Add New Payment" onclick="{!c.addOveragePayment}" />
+                        <lightning:button label="Save Payment" onclick="{!c.savePaymentOverageDetail}" />                        
+                    </div>                    
+                </td>
+            </tr>
+            <tr>
+                <th>OWED</th>
+                <th>PAID</th>
+                <th>CONFIRMED DATE</th>
+				<th>PAYMENT STATUS</th>
+                <th>CLEARED DATE</th>
+				<th>PO #</th>
+				<th>VENDOR</th>
+                <th>PAYMENT NOTES/DETAILS</th>
+                
+                
+                 
+                <th>&nbsp;</th>
+            </tr>
+            <aura:iteration items="{!v.paymentDetailoverages}" var="b" indexVar="key" >
+                <tr>
+                    <td><ui:inputCurrency aura:id="Approved_Overages_Paid__c"  value="{!b.Approved_Overages_Paid__c}"  required="false"/></td>
+                    <td><ui:inputCurrency aura:id="Approved_Overages_dummy__c"  value="{!b.Approved_Overages_dummy__c}" required="false"/></td>
+                    <td><ui:inputText aura:id="Confirmed_Date__c"  value="{!b.Confirmed_Date__c}" required="false"/></td>
+                    <td><lightning:select value="{!b.Payment_Status__c}" aura:id="Payment_Status__c">    
+                            <option value="PAID">PAID</option>
+                            <option value="NOT PAID">NOT PAID</option>
+                            <option value="IN PROCESS">IN PROCESS</option>
+                        </lightning:select></td>
+                    <td><ui:inputText aura:id="Cleared_Date_CJIA__c"  value="{!b.Cleared_Date_CJIA__c}" required="false"/></td>
+                    <td><ui:inputText aura:id="PO__c"  value="{!b.PO__c}" required="false"/></td>
+					<td><ui:inputText aura:id="Vendor__c"  value="{!b.Vendor__c}" required="false"/></td>
+					<td><ui:inputText aura:id="Milestones_Notes__c"  value="{!b.Milestones_Notes__c}" required="false"/></td>                    
+                   
+                    
+                    
+                    <td><a href="javascript:void();" onclick="{!c.deletePayment}" data-id="{!b.Id}" >Del</a></td>
+                </tr>
+            </aura:iteration>
+        </table>
+		
+		<table id="paymentTable">
+            <Tr>
+                <th colspan="7">
+                     Internal Expenses
+                </th>
+            </Tr>
+			<br></br>
+			
+            <tr>
+                <td colspan="9">
+                    <div class="slds-truncate slds-text-align_right">
+                        <lightning:button label="Add New Expense" onclick="{!c.addInternalExpense}" />
+                        <lightning:button label="Save Expense" onclick="{!c.saveInternalExpense}" />                        
+                    </div>                    
+                </td>
+            </tr>
+            <tr>
+                <th>OWED</th>
+                <th>PAID</th>
+                <th>CONFIRMED DATE</th>
+				<th>PAYMENT STATUS</th>
+                <th>CLEARED DATE</th>
+				<th>PO #</th>
+				<th>VENDOR</th>
+                <th>PAYMENT NOTES/DETAILS</th>
+                
+                
+                 
+                <th>&nbsp;</th>
+            </tr>
+            <aura:iteration items="{!v.InternalExpenses}" var="b" indexVar="key" >
+                <tr>
+                    <td><ui:inputCurrency aura:id="Internal_Expense__c"  value="{!b.Internal_Expense__c}"  required="false"/></td>
+                    <td><ui:inputCurrency aura:id="Approved_Overages_dummy__c"  value="{!b.Approved_Overages_dummy__c}" required="false"/></td>
+                    <td><ui:inputText aura:id="Confirmed_Date__c"  value="{!b.Confirmed_Date__c}" required="false"/></td>
+                    <td><lightning:select value="{!b.Payment_Status__c}" aura:id="Payment_Status__c">    
+                            <option value="PAID">PAID</option>
+                            <option value="NOT PAID">NOT PAID</option>
+                            <option value="IN PROCESS">IN PROCESS</option>
+                        </lightning:select></td>
+                    <td><ui:inputText aura:id="Cleared_Date_CJIA__c"  value="{!b.Cleared_Date_CJIA__c}" required="false"/></td>
+                    <td><ui:inputText aura:id="PO__c"  value="{!b.PO__c}" required="false"/></td>
+					<td><ui:inputText aura:id="Vendor__c"  value="{!b.Vendor__c}" required="false"/></td>
+					<td><ui:inputText aura:id="Milestones_Notes__c"  value="{!b.Milestones_Notes__c}" required="false"/></td>                    
+                   
+                    
+                    
+                    <td><a href="javascript:void();" onclick="{!c.deletePayment}" data-id="{!b.Id}" >Del</a></td>
+                </tr>
+            </aura:iteration>
+        </table>
+		
+    </div>
+    <div aura:id="modal" class="{!v.modalOpen ? 'slds-modal slds-fade-in-open slds-modal_large' : 'slds-modal slds-modal_large'}" >
+        <div class="slds-modal__container" >
+            <div class="slds-modal__header">
+                <lightning:buttonIcon size="large" iconName="utility:close" variant="bare-inverse" onclick="{!c.closeModal}" alternativeText="Close window." class="slds-modal__close" />
+                
+                <h2 id="header43" class="slds-text-heading--medium">Select Fields</h2>
+            </div>
+            <div class="slds-modal__content slds-p-around--medium">
+                <div class="slds-m-bottom_medium">
+                    <ui:inputCheckbox aura:id="digitalAllocationCheckbox" name="digitalAllocationCheckbox" value="{!v.digitalAllocationCheckbox}" label="Digital Allocation" change="{!c.onCheck}"/>
+                    <ui:inputCheckbox aura:id="graphicsAllocationCheckbox" name="graphicsAllocationCheckbox"  value="{!v.graphicsAllocationCheckbox}" label="Graphics Allocation" change="{!c.onCheck}"/>
+                    <ui:inputCheckbox aura:id="internalCharges1Checkbox" name="internalCharges1Checkbox"  value="{!v.internalCharges1Checkbox}" label="Internal charges #1" change="{!c.onCheck}"/>
+                    <ui:inputCheckbox aura:id="internalCharges2Checkbox" name="internalCharges2Checkbox"  value="{!v.internalCharges2Checkbox}"  label="Internal Charges #2" change="{!c.onCheck}"/>
+                    <ui:inputCheckbox aura:id="approvedProductionOverages"  name="approvedProductionOverages"  value="{!v.approvedProductionOverages}" label="Approved Production Overages" change="{!c.onCheck}"/>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <lightning:button label="Cancel" onclick="{!c.closeModal}" />
+                <lightning:button variant="brand" label="Calculate" onclick="{!c.CalculateTotal}" />
+            </div>
+        </div>
+    </div> 
+</aura:component>

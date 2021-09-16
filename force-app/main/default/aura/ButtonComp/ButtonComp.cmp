@@ -1,0 +1,5 @@
+<aura:component >
+    <lightning:button label="B1" onclick="{! c.handleClick}" aura:Id="1" />
+    <lightning:button label="B2" onclick="{! c.handleClick}" aura:Id="2" /> 
+    <lightning:button label="B3" onclick="{! c.handleClick}" aura:Id="3" /> 
+</aura:component>

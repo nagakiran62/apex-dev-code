@@ -1,0 +1,29 @@
+<aura:component >
+    
+    <aura:attribute name="title" type="string" default="Message" />
+	
+    <div class="slds-modal slds-fade-in-open">
+       <div class="slds-modal__container">
+        
+        <div class="slds-modal__header">
+            <lightning:buttonIcon iconName="utility:close"
+                                  alternativeText="Close Window"
+                                  size="large"
+                                  variant="bare-inverse"
+                                  onclick="{! c.closeModal}"
+                                  class="slds-modal__close" />
+            {! v.title}
+        </div>
+        <div class="slds-modal__content">
+            {! v.body}
+        </div>
+        <div class="slds-modal__footer">
+            <lightning:button label="ok" variant="brand" onclick="{! c.closeModal}" />
+            <lightning:button label="cancel" onclick="{! c.closeModal}" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="slds-backdrop slds-backdrop_open">
+    </div>
+</aura:component>

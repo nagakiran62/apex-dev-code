@@ -1,0 +1,15 @@
+<aura:component >
+	<lightning:layout >
+      <lightning:layoutItem size="2">
+          <lightning:button iconName="utility:back" />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="8">
+          <c:OppComp />
+      </lightning:layoutItem>
+      <lightning:layoutItem size="2">
+          <c:buttonmenu />
+      </lightning:layoutItem>
+
+    
+    </lightning:layout>
+</aura:component>

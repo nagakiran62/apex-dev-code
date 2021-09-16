@@ -1,0 +1,6 @@
+<aura:component >
+	<!-- register for event -->
+    <aura:registerevent name="emergency" type="c:EmergencyEvent" />
+    <!-- add an action -->
+    <lightning:button label="Dial 911" onclick="{! c.dial911}" />
+</aura:component>

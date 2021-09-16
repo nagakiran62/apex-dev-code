@@ -1,0 +1,79 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" >
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="selected" type="String" default="0" />
+    <c:ShowHeader recordId="{!v.recordId}" />
+    <div class="slds-vertical-tabs">
+        <ul class="slds-vertical-tabs__nav" role="tablist" aria-orientation="vertical">
+            <li class="{!'slds-vertical-tabs__nav-item '+if(v.selected=='0','slds-is-active','')}" title="General Info" role="presentation" >
+                <a class="slds-vertical-tabs__link" onclick="{!c.selectTab}" href="javascript:void(0)" role="tab" tabindex="{!if(v.selected=='0','0','-1')}" aria-selected="{!if(v.selected=='0','true','false')}" aria-controls="slds-vertical-tabs-0" id="slds-vertical-tabs-0__nav">General Info</a>
+            </li>
+            <li class="{!'slds-vertical-tabs__nav-item '+if(v.selected=='1','slds-is-active','')}" title="Budget Info" role="presentation">
+                <a class="slds-vertical-tabs__link" onclick="{!c.selectTab}" href="javascript:void(0)" role="tab" tabindex="{!if(v.selected=='1','0','-1')}" aria-selected="{!if(v.selected=='1','true','false')}" aria-controls="slds-vertical-tabs-1" id="slds-vertical-tabs-1__nav">Budget Info</a>
+            </li>
+			
+			<li class="{!'slds-vertical-tabs__nav-item '+if(v.selected=='2','slds-is-active','')}" title="Tasks" role="presentation">
+                <a class="slds-vertical-tabs__link" onclick="{!c.selectTab}" href="javascript:void(0)" role="tab" tabindex="{!if(v.selected=='2','0','-1')}" aria-selected="{!if(v.selected=='2','true','false')}" aria-controls="slds-vertical-tabs-2" id="slds-vertical-tabs-2__nav">Tasks</a>
+            </li>
+            <!--  Commented out - Gireesh - ECM- 78 -Hide Tasks and Calendar Tabs-->
+            <!-- 
+            <li class="{!'slds-vertical-tabs__nav-item '+if(v.selected=='2','slds-is-active','')}" title="Tasks" role="presentation">
+                <a class="slds-vertical-tabs__link" onclick="{!c.selectTab}" href="javascript:void(0)" role="tab" tabindex="{!if(v.selected=='2','0','-1')}" aria-selected="{!if(v.selected=='2','true','false')}" aria-controls="slds-vertical-tabs-2" id="slds-vertical-tabs-2__nav">Tasks</a>
+            </li>
+            <li class="{!'slds-vertical-tabs__nav-item '+if(v.selected=='3','slds-is-active','')}" title="Calendar" role="presentation">
+                <a class="slds-vertical-tabs__link" onclick="{!c.selectTab}" href="javascript:void(0)" role="tab" tabindex="{!if(v.selected=='3','0','-1')}" aria-selected="{!if(v.selected=='3','true','false')}" aria-controls="slds-vertical-tabs-3" id="slds-vertical-tabs-3__nav">Calendar</a>
+            </li>
+      -->
+            <!--
+            <li class="{!'slds-vertical-tabs__nav-item '+if(v.selected=='4','slds-is-active','')}" title="Tasks" role="presentation">
+                <a class="slds-vertical-tabs__link" onclick="{!c.selectTab}" href="javascript:void(0)" role="tab" tabindex="{!if(v.selected=='4','0','-1')}" aria-selected="{!if(v.selected=='4','true','false')}" aria-controls="slds-vertical-tabs-4" id="slds-vertical-tabs-4__nav">Show Data</a>
+            </li>
+
+-->
+			<!--            
+            <li class="{!'slds-vertical-tabs__nav-item '+if(v.selected=='5','slds-is-active','')}" title="Show Contacts" role="presentation">
+                <a class="slds-vertical-tabs__link" onclick="{!c.selectTab}" href="javascript:void(0)" role="tab" tabindex="{!if(v.selected=='5','0','-1')}" aria-selected="{!if(v.selected=='5','true','false')}" aria-controls="slds-vertical-tabs-5" id="slds-vertical-tabs-5__nav">Show Rates</a>
+            </li>-->
+            <li class="{!'slds-vertical-tabs__nav-item '+if(v.selected=='6','slds-is-active','')}" title="Forms" role="presentation">
+                <a class="slds-vertical-tabs__link" onclick="{!c.selectTab}" href="javascript:void(0)" role="tab" tabindex="{!if(v.selected=='6','0','-1')}" aria-selected="{!if(v.selected=='6','true','false')}" aria-controls="slds-vertical-tabs-6" id="slds-vertical-tabs-6__nav">Forms</a>
+            </li>
+        </ul>
+        <div class="{!'slds-vertical-tabs__content '+if(v.selected=='0','slds-show','slds-hide')}" aura:id="slds-vertical-tabs-0" role="tabpanel" aria-labelledby="slds-vertical-tabs-0__nav">
+            <c:showEdit recordId="{!v.recordId}" />
+        </div>
+      
+        <div class="{!'slds-vertical-tabs__content '+if(v.selected=='1','slds-show','slds-hide')}" aura:id="slds-vertical-tabs-1" role="tabpanel" aria-labelledby="slds-vertical-tabs-1__nav">
+            <c:ShowBudgetTab recordId="{!v.recordId}" />
+        </div>
+		
+		<div class="{!'slds-vertical-tabs__content '+if(v.selected=='2','slds-show','slds-hide')}" aura:id="slds-vertical-tabs-2" role="tabpanel" aria-labelledby="slds-vertical-tabs-2__nav">
+                <c:showTasks recordId="{!v.recordId}" />
+        </div>
+        
+        <!-- Commented Out below "Tasks" and "Calendar" Tabs - ECM- 79-JOLT  -->
+<!--
+        <div class="{!'slds-vertical-tabs__content '+if(v.selected=='2','slds-show','slds-hide')}" aura:id="slds-vertical-tabs-2" role="tabpanel" aria-labelledby="slds-vertical-tabs-2__nav">
+                <c:tasksList recordId="{!v.recordId}" />
+        </div>
+        <div class="{!'slds-vertical-tabs__content '+if(v.selected=='3','slds-show','slds-hide')}" aura:id="slds-vertical-tabs-3" role="tabpanel" aria-labelledby="slds-vertical-tabs-3__nav">
+            Use the buttons to select a calendar view<br/>
+            <c:FullerCalendar recordId="{!v.recordId}" />
+        </div>
+        -->
+        <!-- Commented by Gireesh - Jan 10 2019 -->
+        <!--
+        <div class="{!'slds-vertical-tabs__content '+if(v.selected=='4','slds-show','slds-hide')}" aura:id="slds-vertical-tabs-4" role="tabpanel" aria-labelledby="slds-vertical-tabs-4__nav">
+                <c:showData recordId="{!v.recordId}" />
+        </div>
+
+-->
+        <!--
+        <div class="{!'slds-vertical-tabs__content '+if(v.selected=='5','slds-show','slds-hide')}" aura:id="slds-vertical-tabs-5" role="tabpanel" aria-labelledby="slds-vertical-tabs-5__nav">
+            <c:ShowRates recordId="{!v.recordId}" />
+        </div>
+		-->
+        <div class="{!'slds-vertical-tabs__content '+if(v.selected=='6','slds-show','slds-hide')}" aura:id="slds-vertical-tabs-6" role="tabpanel" aria-labelledby="slds-vertical-tabs-6__nav">
+                <c:FileExplorer recordId="{!v.recordId}" />
+        </div>
+
+    </div>
+</aura:component>

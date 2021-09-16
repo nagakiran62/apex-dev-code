@@ -1,0 +1,8 @@
+<aura:component >
+	<div class="mystyle">
+      Resize the browser window. When the width of this document is 600 pixels or less, 
+      the background-color is "lightblue", otherwise it is "lightgreen
+    
+    </div>
+    
+</aura:component>

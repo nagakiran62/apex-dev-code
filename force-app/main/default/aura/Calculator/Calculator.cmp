@@ -1,0 +1,58 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+
+    <aura:attribute name="value1"
+                    type="Integer" 
+                    default="20" />
+    	
+    <aura:attribute name="value2"
+                    type="Integer" 
+                    default="10" />
+    
+    <aura:attribute name="result"
+                    type="Double" 
+                   />
+    
+   <div CLASS="myStyle2">
+    <!-- Display calc image using static resource -->
+    <img src= "{! $Resource.calc  }"/>  
+    <!-- take input from user -->
+    
+    <lightning:input class="myStyle" value="{! v.value1}" name="fn" label="Enter first name" />
+    <lightning:input class="myStyle" value="{! v.value2}" name="sn" label="enter second name" />
+    <div class="myStyle1">
+      Result is: {! v.result}
+    </div>
+    
+    <!--perform arthimetic operations on two attributes
+    
+    <div>
+        {! v.value1 + v.value2} 
+    </div>
+    <div>
+        {! v.value1 - v.value2} 
+    </div>
+    <div>
+        {! v.value1 * v.value2} 
+    </div>
+    <div>
+        {! v.value1 / v.value2} 
+    </div>
+    -->
+    
+    <lightning:button label="Addition" 
+                      variant="success" 
+                      iconName="utility:add" 
+                      onclick="{! c.add}" />
+    <lightning:button label="Subtraction" 
+                      variant="brand" 
+                      iconName="utility:dash" 
+                      onclick="{! c.sub}" />
+    <lightning:button label="Multiplication" 
+                      variant="destructive" 
+                      iconName="utility:close" 
+                      onclick="{! c.mul}" />
+    <lightning:button label="Division" 
+                      iconName="utility:topic" 
+                      onclick="{! c.div}" />
+  </div>  
+</aura:component>

@@ -1,0 +1,7 @@
+<aura:component >
+	<!-- defining handler to event NEVER represent name attribute -->
+    
+    <aura:handler event="c:EmergencyEvent" action="{! c.handleEmergency}" />
+    <!-- NEVer refer notifier component -->
+    
+</aura:component>

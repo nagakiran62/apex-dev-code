@@ -1,0 +1,44 @@
+<aura:component controller="oppController" extends="c:GenericCallComp" implements="force:appHostable,flexipage:availableForAllPageTypes" >
+	
+    <!-- Define a list type attribute to store Opps -->
+    
+    
+    <aura:attribute name="oppList"
+                    type="List" 
+                     />
+    <!-- define aura:handler for aura:waiting and aura:donewaiting -->
+    
+    <aura:handler event="aura:waiting" action="{! c.ShowSpinner}" />
+    <aura:handler event="aura:doneWaiting" action="{! c.hideSpinner}" />
+    <!-- define aura methods so that controller function can call another -->
+    <aura:method name="display" action="{! c.displayToast}" />
+    <!-- display a spinner -->
+    <lightning:spinner size="large" variant="base" class="slds-hide" aura:Id="spinner" />
+    <lightning:button label="GET ALL OPPS" 
+                      onclick="{! c.getAllOpps}"/>
+    
+    <lightning:button label="GET ALL CLOSEWON OPPS" 
+                      onclick="{! c.getAllWonOpps}"/>
+    
+    <!-- Iterate through the opplist and display name,stagename and amount fields values using
+          aura:iteration -->
+    <table class="slds-table slds-table_bordered">
+        <thead>
+         <tr>
+            <th>Name</th>
+            <th>Stage</th>
+            <th>Amount</th>
+         </tr>
+        
+        </thead>
+        <tbody>
+    <aura:iteration items="{!v.oppList}" var="opp">
+       <c:GenericDisplayOpp attr1="{! opp.Name}"
+                           attr2="{! opp.StageName}"
+                           attr3="{! opp.Amount}"
+                           sid="{! opp.Id}" />
+       
+    </aura:iteration>
+    </tbody>
+        </table>
+</aura:component>

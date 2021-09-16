@@ -1,0 +1,37 @@
+<aura:component controller="lightning_Controller" implements="flexipage:availableForAllPageTypes,force:hasRecordId" >
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="show" type="Show__c" />
+    <aura:attribute name="imageMode" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div style="background-color:#015B7D; min-height:50px; width:100%;" >
+		<!--
+        <span style="color:white; display:inline-block; margin:5px; min-height:50px; width:25%" >
+            <aura:if isTrue="{!and(v.imageMode=='view',v.show.Image_URL__c!=null)}" >
+                <img src="{!v.show.Image_URL__c}" alt="{!v.show.Name}" ondblclick="{!c.editImageURL}" />
+            </aura:if>
+            <aura:if isTrue="{!or(v.imageMode=='edit',v.show.Image_URL__c==null)}" >
+                Paste Image URL<br/>
+                <ui:inputText aura:id="imageURL" value="{!v.show.Image_URL__c}" /><br/>
+                <span onclick="{!c.saveImageURL}" style="cursor:pointer;" >Save</span>
+            </aura:if>
+        </span>
+		-->
+        <span style="color:white; display:inline-block; margin:5px; margin-top:10px; min-height:50px; vertical-align:top;" >
+            <div style="margin:auto;font-weight:bold; font-size:18px;">
+                {!v.show.Name +
+                if(v.show.FKA__c != null,' ('+v.show.FKA__c+'),') +
+                if(v.show.Season__c != null,' | SEASON '+v.show.Season__c,'') +
+                if(v.show.NumberofEps__c != null,' | # EPs '+v.show.NumberofEps__c, '')}
+            </div>
+                <div style="margin:auto;">
+                {!if(v.show.WBS_Element__c != null,v.show.WBS_Element__c,'')+
+                if(v.show.Cost_per_episode__c != null,' | '+v.show.Cost_per_episode__c,'') +
+                if(v.show.Guilds__c != null,' | '+v.show.Guilds__c,'')}
+            </div>
+        </span>
+    </div>
+    <div style="color:white; float:right; font-weight:bold;">
+    	PLEASE USE CHROME TO LOGIN TO THIS APPLICATION.
+    </div>
+</aura:component>

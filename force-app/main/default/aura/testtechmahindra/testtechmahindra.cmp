@@ -1,0 +1,29 @@
+<aura:component controller='accountcontact' >
+    <aura:attribute name="searchvalue" type ="string"/>
+    
+    <aura:attribute name="accountslist" type="List"/>
+    
+    <lightning:input value="{!v.searchvalue}"/>
+    
+    <lightning:button Label= "search" onclick="{!c.searchaccount}"/>
+    
+    <table class="slds-table slds-table_bordered">
+        <thead>
+         <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            
+         </tr>
+        
+        </thead>
+        <tbody>
+    <aura:iteration items="{!v.accountslist}" var="acc">
+       <tr> 
+       <td>{!acc.name}</td>
+       <td> {!acc.phone}</td>
+        </tr>
+    </aura:iteration>
+    </tbody>
+        </table>
+    
+</aura:component>

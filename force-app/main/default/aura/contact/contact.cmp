@@ -1,0 +1,44 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" controller="contactcreate"  >
+	<aura:attribute
+                    name="value1"
+                    type="Integer" 
+                     />
+    
+    <aura:attribute name="result"
+                    type="Integer" 
+                   />
+    
+    
+    <lightning:input class="myStyle" value="{! v.value1}" name="fn" label="Enter first name" />
+    
+    
+
+    <lightning:button label="create" 
+                      variant="success" 
+                      iconName="utility:add" 
+                      onclick="{! c.create}" />
+    
+    
+    <lightning:select
+ name="idCaptain"
+ label="Select a Captain"
+ aura:Id="idCaptain"
+ value="2"
+ onchange="{!c.onCaptChange}">
+ <option value="">Choose one...</option>
+ <option value="1">Kirk</option>
+ <option value="2">Sisko</option>
+ <option value="3">Janeway</option>
+ </lightning:select>
+    <div>
+     {! v.result}
+    
+    </div>
+    
+ <lightning:button
+ onclick="{! c.handleClick }"
+ label="Brand"
+ variant="brand"
+ class="slds-float--left"/>
+    
+</aura:component>

@@ -1,0 +1,12 @@
+.THIS {
+}
+
+.THIS.mystyle{
+    background-color: pink;
+}
+
+@media only screen and (max-width: 600px){
+    .THIS.mystyle{
+    background-color: lightblue;
+  }
+}

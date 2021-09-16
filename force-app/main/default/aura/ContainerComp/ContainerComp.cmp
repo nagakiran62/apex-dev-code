@@ -1,0 +1,60 @@
+<aura:component implements="force:appHostable" >
+	<lightning:tabset variant="scoped">
+           <lightning:tab label="calc">
+               <c:Calculator />
+           </lightning:tab>
+           
+           <lightning:tab label="opportunities">
+           <c:OppComp />
+           </lightning:tab>
+           
+           <lightning:tab label="accounts">
+           <c:AccCompo />
+           </lightning:tab>
+        
+           <lightning:tab label="buttons">
+           <c:ButtonComp />
+           </lightning:tab>
+           
+           <lightning:tab label="Deck of Cards">
+           <c:DeckOfCards />
+           </lightning:tab>
+        
+           <lightning:tab label="Menu">
+           <c:buttonmenu />
+           </lightning:tab>
+        
+           <lightning:tab label="layout">
+           <c:LayoutComp />
+           </lightning:tab>
+        
+           <lightning:tab label="responsive">
+           <c:ResponsiveDesign />
+           </lightning:tab>
+        
+           <lightning:tab label="Modaldialog">
+           <c:ModalDialog title="good evening">
+               
+               welcome da
+            </c:ModalDialog>
+           </lightning:tab>
+        
+        <lightning:tab label="EventHandler">
+           <c:CrimeEventHandler />
+           </lightning:tab>
+        
+        <lightning:tab label="EventAppHandler">
+           <c:EmergencyContainerComp />
+           </lightning:tab>
+        
+        <lightning:tab label="contactform">
+           <c:ContactForm />
+           </lightning:tab>
+        
+        <lightning:tab label="task">
+           <c:TaskHandler />
+           </lightning:tab>
+    
+    
+    </lightning:tabset>
+</aura:component>

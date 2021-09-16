@@ -1,0 +1,9 @@
+.THIS {
+}
+
+.THIS .assumptionsrow:hover {
+	background-color: LightGray; 
+}
+.THIS .assumptionsrow2:hover{
+    background-color:PowderBlue;
+}
